@@ -30,7 +30,7 @@ public class LeHttpClient {
 
     private static final String host = "http://api.open.letvcloud.com/live/execute";
     private static final Integer userid = 826763;
-    private static final String secret = "df116ce79e6509b44f267d75361305d1";
+    private static final String secret = "";
     private static final String ver = "3.1";
 
     private HttpClient client = HttpClients.createDefault();
