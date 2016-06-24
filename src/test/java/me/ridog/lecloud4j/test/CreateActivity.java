@@ -18,7 +18,7 @@ public class CreateActivity {
 
         LeHttpClient leHttpClient = new LeHttpClient();
         HashMap<String, Object> params = Maps.newHashMap();
-        params.put("activityName", "感觉自己萌萌哒OwO");
+        params.put("activityName", "测试活动111");
         params.put("startTime", "20160617104655");
         params.put("endTime", "20160623234655");
         params.put("liveNum", 1);
@@ -29,8 +29,7 @@ public class CreateActivity {
         params.put("activityCategory", "013");
         params.put("playMode", 0);
 
-        RemoteResultWrapper remoteResultWrapper = leHttpClient.executePost("lecloud.cloudlive.activity.create", null, params);
-        System.out.println(remoteResultWrapper.getRemoteResult().getJsonObj());
+       leHttpClient.executePost("lecloud.cloudlive.activity.create", null, params);
 
     }
 }
