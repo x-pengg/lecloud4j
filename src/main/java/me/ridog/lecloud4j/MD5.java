@@ -29,27 +29,6 @@ public class MD5 {
 
     }
 
-    /**
-     * generate MD5
-     *
-     * @param src
-     * @return
-     * @throws Exception
-     */
-    public static String MD5(byte[] src) {
-        try {
-            if (src == null) {
-                return "";
-            }
-            byte[] result = null;
-            MessageDigest alg = MessageDigest.getInstance("MD5");
-            result = alg.digest(src);
-            return byte2hex(result);
-        } catch (Exception e) {
-            throw new RuntimeException();
-        }
-    }
-
     private static String byte2hex(byte[] b) {
         if (b == null) {
             return "";

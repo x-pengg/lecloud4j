@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -63,6 +64,10 @@ public class LeHttpClient {
 
         DefaultHeaderMap defaultHeaderMap = new DefaultHeaderMap(method, ver, userid);
 
+        String sign = generateSign(defaultHeaderMap, secret);
+        defaultHeaderMap.put("sign", sign);
+        paramsMap.putAll(defaultHeaderMap);
+
         RemoteResultWrapper<T> wrapper = new RemoteResultWrapper<T>();
         RemoteResultVo remoteResult = new RemoteResultVo();
         wrapper.setRemoteResult(remoteResult);
@@ -71,9 +76,7 @@ public class LeHttpClient {
         // 设置默认头
         post.addHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
 
-        String sign = generateSign(defaultHeaderMap, secret);
-        defaultHeaderMap.put("sign", sign);
-        paramsMap.putAll(defaultHeaderMap);
+
 
         // 设置 header
         if (null != headerMap) {
@@ -141,12 +144,20 @@ public class LeHttpClient {
             throw new IllegalArgumentException("调用的 method 为空!");
         }
 
+        if (null==paramsMap) {
+            paramsMap = Maps.newHashMap();
+        }
+
         _log.info("Begin invoke method:{},args:{}", method,
                 JSON.toJSONString(paramsMap));
 
         DefaultHeaderMap defaultHeaderMap = new DefaultHeaderMap(method, ver, userid);
+        String sign = generateSign(defaultHeaderMap, secret);
+        defaultHeaderMap.put("sign", sign);
 
         paramsMap.putAll(defaultHeaderMap);
+
+
 
         RemoteResultWrapper<T> wrapper = new RemoteResultWrapper<T>();
         RemoteResultVo remoteResult = new RemoteResultVo();
